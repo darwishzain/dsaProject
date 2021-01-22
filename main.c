@@ -22,13 +22,10 @@ struct Admin
 
 struct Stock
 {
-    int productId[10];
+    int productId;
     char productName[50];
     int productQuantity;
     float productPrice;
-    int searchId;
-    int searchQuantity;
-    float searchPrice;
     struct Admin admin;
     struct Stock *ptrnext;
 };
@@ -144,7 +141,7 @@ void enqueueStock()
     printf("\t\t       ITEM DETAILS       ");
 
     printf("\n\n\t\t       PRODUCT ID:");
-    scanf("%s",&newptr->productId);
+    scanf("%d",&newptr->productId);
     fflush(stdin);
 
     printf("\t\t       PRODUCT NAME:");
@@ -202,6 +199,7 @@ void updateStock()
 void sortStock()
 {
     struct Stock* temp=headptr;
+    printf("\t\tStart sorting....");
     while(temp!=NULL)
     {
         struct Stock* min = temp;
@@ -216,143 +214,31 @@ void sortStock()
             r=r->ptrnext;
         }
         //swap id
-        char newId[10];
-        strcpy(newId,temp->productId);
-        strcpy(temp->productId,min->productId);
-        strcpy(min->productId,newId);
+        int newId;
+        newId=temp->productId;
+        temp->productId=min->productId;
+        min->productId=newId;
         //swap name
         char newName[50];
         strcpy(newName,temp->productName);
         strcpy(temp->productName,min->productName);
         strcpy(min->productName,newName);
         //swap quantity
-        int newQ = temp->productQuantity;
-        temp->productQuantity = min->productQuantity;
-        min->productQuantity = newQ;
+        int newQ = temp->productQuantity; 
+        temp->productQuantity = min->productQuantity; 
+        min->productQuantity = newQ; 
         //swap price
-        float newP = temp->productPrice;
-        temp->productPrice = min->productPrice;
+        float newP = temp->productPrice; 
+        temp->productPrice = min->productPrice; 
         min->productPrice = newP;
 
-        temp = temp->ptrnext;
+        temp = temp->ptrnext; 
     }
 }
 void searchStock()
 {
-struct Stock* headptr;
-
-    int category;
-
-    printf("Category");
-    printf("\n1. Product ID");
-    printf("\n2. Quantity of product");
-    printf("\n3. Product Price");
-    printf("\n4. Exit");
-    printf("\n\t\t      Enter Categoty [1,2,3,4]: ");
-    scanf("%d", &category);
-
-    switch(category)
-    {
-
-    case 1:
-    if(headptr==NULL)
-    {
-        printf("\n\n The list is empty!!!\n");
-
-    }
-    else
-     {
-         printf("\n Enter produt ID : ");
-         scanf("%s",&newptr->productId);
-         fflush(stdin);
-
-         currentptr=headptr;
-          if (currentptr->ptrnext!=NULL)
-          {
-
-                  printf("\n The product is found");
-                  printf("\n Product ID  : %d", currentptr->productId);
-                  printf("\n Name        : %s", currentptr->productName);
-                  printf("\n Price       : %2.f", currentptr->productPrice);
-                  printf("\n Quantity    : %d", currentptr->productQuantity);
-                  return;
-          }
-          else
-          {
-             printf("\n The product is not found");
-          }
-     }
-
-    break;
-
-
-    case 2:  if(headptr==NULL)
-    {
-        printf("\n\n The list is empty!!!\n");
-
-    }
-    else
-     {
-         printf("\n Enter quantity of product : ");
-         scanf("%d",&newptr->productQuantity);
-         fflush(stdin);
-
-         currentptr=headptr;
-         if (currentptr->ptrnext!=NULL)
-          {
-                  printf("\n The quantity is found");
-                  printf("\n Info product");
-                  printf("\n Product ID  : %d", currentptr->productId);
-                  printf("\n Product Name: %s", currentptr->productName);
-                  printf("\n Price       : %2.f", currentptr->productPrice);
-                  printf("\n Quantity    : %d", currentptr->productQuantity);
-                  return;
-          }
-          else
-          {
-             printf("\n The product is not found");
-          }
-     }
-
-    break;
-
-    case 3:  if(headptr==NULL)
-    {
-        printf("\n\n The list is empty!!!\n");
-
-    }
-    else
-     {
-         printf("\n Enter produt price : ");
-         scanf("%f",&newptr->productPrice);
-         fflush(stdin);
-
-         currentptr=headptr;
-          if (currentptr->ptrnext!=NULL)
-          {
-
-                  printf("\n The Product is found");
-                  printf("\n Product ID  : %d", currentptr->productId);
-                  printf("\n Product Name: %s", currentptr->productName);
-                  printf("\n Price       : %2.f",currentptr->productPrice);
-                  printf("\n Quantity    : %d", currentptr->productQuantity);
-                  return;
-          }
-          else
-          {
-             printf("\n The product is not found");
-          }
-     }
-    break;
-
-    case 4: exit(0);
-
-    default: printf("\n\t\t Reenter the category!!");
-
-    }
-
+    
 }
-
 void displayStock()
 {
 
@@ -370,7 +256,7 @@ void displayStock()
     while(currentptr !=(struct Stock *)NULL)
         {
 
-            printf("\n\t\t       PRODUCT ID: %s" ,currentptr->productId);
+            printf("\n\t\t       PRODUCT ID: %d" ,currentptr->productId);
             printf("\n\t\t       PRODUCT NAME:%s" ,currentptr->productName);
             printf("\n\t\t       QUANTITY: %d" ,currentptr->productQuantity);
             printf("\n\t\t       PRICE:%.2f\n" ,currentptr->productPrice);
